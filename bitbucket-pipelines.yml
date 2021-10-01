@@ -1,0 +1,17 @@
+image: wagnerstephan/bitbucket-git-ftp:latest
+
+pipelines:
+  custom:
+    init:
+    - step:
+        script:
+          - git ftp init -vv -u $username -p $password ftp://$server
+    deploy:
+    - step:
+        script:
+          - git ftp push -vv -u $username -p $password ftp://$server --all
+  branches:
+    master:
+    - step:
+        script:
+          - git ftp push -vv -u $username -p $password ftp://$server
